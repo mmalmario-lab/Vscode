@@ -4,46 +4,63 @@ import java.util.Scanner;
 
 /**
  * FULL OOP DEMO: Advanced Authentication System
- * This single program demonstrates EVERY concept you just studied:
- *   • Encapsulation (private fields + getters/setters with validation)
- *   • Inheritance (RegularUser & AdminUser extend AbstractUser)
- *   • Abstract Class (AbstractUser)
- *   • Interface (Authenticatable)
- *   • Polymorphism (same method behaves differently for different user types)
- *
- * Build on your original PasswordCheckerOOP – now it's production-ready!
+ * 
+ * This program demonstrates ALL the OOP concepts you studied:
+ *   • Encapsulation
+ *   • Inheritance
+ *   • Abstract Class
+ *   • Interface
+ *   • Polymorphism
+ * 
+ * Every code block now has clear notes explaining exactly what it does.
  */
 
 //////////////////////////////////////////////////////
-// 1. INTERFACE (defines the contract)
+// 1. INTERFACE - Defines the contract (blueprint)
 //////////////////////////////////////////////////////
+// This interface says: "Any class that wants to be 'Authenticatable'
+// MUST implement these 3 methods. It creates a promise/contract.
 interface Authenticatable {
-    boolean login(String username, String password);   // must be implemented
-    String getRole();                                  // for polymorphism
+    
+    // Method that will handle login logic
+    boolean login(String username, String password);
+    
+    // Returns the role of the user (used for polymorphism)
+    String getRole();
+    
+    // Method to log the user out
     void logout();
 }
 
 //////////////////////////////////////////////////////
-// 2. ABSTRACT CLASS (template with common code)
+// 2. ABSTRACT CLASS - Template for all users
+// (Cannot be created directly, provides common code)
 //////////////////////////////////////////////////////
+// This abstract class implements the Authenticatable interface
+// and provides shared functionality for ALL user types.
+// It uses ENCAPSULATION to protect username/password.
 abstract class AbstractUser implements Authenticatable {
-    // ENCAPSULATION: data is private, only accessible via methods
+    
+    // ENCAPSULATION: These fields are private so no other class
+    // can directly change them. Only methods inside this class can access them.
     private String username;
-    private String password;   // hashed in real apps, but plain for demo
+    private String password;
     private boolean isLoggedIn = false;
 
-    // Constructor (called by subclasses)
+    // Constructor - runs when a new user is created
+    // It calls the setter to ensure password validation happens
     protected AbstractUser(String username, String password) {
         this.username = username;
-        setPassword(password);   // use setter for validation
+        setPassword(password);   // safe way to store password
     }
 
-    // GETTER (accessor) - read-only access
+    // GETTER (Accessor) - Allows safe reading of username
     public String getUsername() {
         return username;
     }
 
-    // SETTER (mutator) with validation - protects internal state
+    // SETTER (Mutator) with validation - Protects the password
+    // Only allows passwords that are at least 6 characters
     public void setPassword(String newPassword) {
         if (newPassword == null || newPassword.length() < 6) {
             throw new IllegalArgumentException("Password must be at least 6 characters!");
@@ -51,7 +68,8 @@ abstract class AbstractUser implements Authenticatable {
         this.password = newPassword;
     }
 
-    // Common login logic shared by all users
+    // Common login logic shared by RegularUser and AdminUser
+    // This is the default implementation from the interface
     @Override
     public boolean login(String enteredUser, String enteredPass) {
         if (this.username.equals(enteredUser) && this.password.equals(enteredPass)) {
@@ -63,40 +81,51 @@ abstract class AbstractUser implements Authenticatable {
         return false;
     }
 
+    // Logout method - resets the login status
     @Override
     public void logout() {
         this.isLoggedIn = false;
         System.out.println("👋 Logged out.");
     }
 
-    // Abstract method - subclasses MUST implement their own version (polymorphism!)
+    // ABSTRACT METHOD - Subclasses MUST implement this
+    // This is where polymorphism happens (different welcome messages)
     public abstract void welcomeMessage();
 }
 
 //////////////////////////////////////////////////////
-// 3. CONCRETE CLASSES (Inheritance + Polymorphism)
+// 3. CONCRETE CLASS 1 - Regular User
+// Inherits everything from AbstractUser + adds its own behavior
 //////////////////////////////////////////////////////
-
-// Regular user inherits everything from AbstractUser
+// Inheritance in action: RegularUser extends AbstractUser
+// It only needs to provide the abstract method and its role
 class RegularUser extends AbstractUser {
+
+    // Constructor calls the parent constructor (super)
     public RegularUser(String username, String password) {
         super(username, password);
     }
 
+    // Returns role - used in polymorphism
     @Override
     public String getRole() {
         return "Regular User";
     }
 
-    // Method Overriding - different behavior
+    // Method Overriding - This version runs when a RegularUser logs in
     @Override
     public void welcomeMessage() {
         System.out.println("Welcome back, " + getUsername() + "! 👋");
     }
 }
 
-// Admin user inherits AND adds extra capabilities
+//////////////////////////////////////////////////////
+// 3. CONCRETE CLASS 2 - Admin User
+// Also inherits from AbstractUser but has extra powers
+//////////////////////////////////////////////////////
+// Inheritance + extra features
 class AdminUser extends AbstractUser {
+
     public AdminUser(String username, String password) {
         super(username, password);
     }
@@ -106,36 +135,41 @@ class AdminUser extends AbstractUser {
         return "Administrator";
     }
 
-    // Method Overriding + extra admin feature
+    // Different welcome message (Method Overriding)
     @Override
     public void welcomeMessage() {
         System.out.println("🔐 Welcome, Administrator " + getUsername() + "!");
         System.out.println("   You have full system access.");
     }
 
-    // New method only available to admins
+    // Extra method ONLY available to AdminUser
     public void deleteUser(String username) {
         System.out.println("🗑️  Admin deleted user: " + username);
     }
 }
 
 //////////////////////////////////////////////////////
-// 4. MAIN PROGRAM (Polymorphism in action)
+// 4. MAIN CLASS - The program that runs everything
+// Demonstrates polymorphism with a List of Authenticatable objects
 //////////////////////////////////////////////////////
 public class OOPConceptsDemo {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<Authenticatable> users = new ArrayList<>();   // Polymorphic list!
+        
+        // Polymorphic list: Can hold ANY class that implements Authenticatable
+        // (RegularUser and AdminUser both qualify)
+        List<Authenticatable> users = new ArrayList<>();
 
         System.out.println("=== Advanced OOP Authentication System ===\n");
 
-        // Registration phase (Encapsulation + Inheritance)
+        // ===================== REGISTRATION BLOCK =====================
+        // Creates two different types of users using Inheritance
         System.out.print("Create Regular User - Username: ");
         String regUser = scanner.nextLine();
         System.out.print("Password: ");
         String regPass = scanner.nextLine();
         RegularUser regular = new RegularUser(regUser, regPass);
-        users.add(regular);
+        users.add(regular);   // added to polymorphic list
 
         System.out.print("\nCreate Admin User - Username: ");
         String adminUser = scanner.nextLine();
@@ -146,7 +180,8 @@ public class OOPConceptsDemo {
 
         System.out.println("\n✅ Accounts created successfully!\n");
 
-        // Login phase - demonstrating Polymorphism
+        // ===================== LOGIN & DEMO BLOCK =====================
+        // This loop shows Polymorphism in action
         boolean running = true;
         while (running) {
             System.out.print("Enter username to login (or type 'exit'): ");
@@ -156,12 +191,14 @@ public class OOPConceptsDemo {
             System.out.print("Enter password: ");
             String loginPass = scanner.nextLine();
 
-            // Polymorphism: same loop works for ANY Authenticatable object!
+            // Loop through all users (Regular + Admin)
+            // The same code works for both because of polymorphism!
             for (Authenticatable user : users) {
-                if (user.login(loginUser, loginPass)) {
-                    user.welcomeMessage();   // calls the correct overridden version
+                if (user.login(loginUser, loginPass)) {   // calls correct login()
+                    
+                    user.welcomeMessage();   // calls the overridden version (different for each user type)
 
-                    // Extra admin feature (type checking)
+                    // Type checking to access admin-only method
                     if (user instanceof AdminUser) {
                         System.out.print("Do you want to delete a user? (y/n): ");
                         if (scanner.nextLine().equalsIgnoreCase("y")) {
@@ -170,7 +207,7 @@ public class OOPConceptsDemo {
                         }
                     }
 
-                    user.logout();
+                    user.logout();   // common method from abstract class
                     break;
                 }
             }
@@ -180,11 +217,3 @@ public class OOPConceptsDemo {
         scanner.close();
     }
 }
-/*
-Concept,Where you see it,Why it matters
-Encapsulation,"private fields + getUsername(), setPassword() with validation",Protects data from accidental changes
-Inheritance,RegularUser and AdminUser extend AbstractUser,Reuses common code
-Abstract Class,AbstractUser (has abstract welcomeMessage()),Forces subclasses to provide their own version
-Interface,Authenticatable (implemented by AbstractUser),Defines a contract that any login system must follow
-Polymorphism,List<Authenticatable> and calling login() / welcomeMessage(),Same code works for RegularUser OR AdminUser
-*/
