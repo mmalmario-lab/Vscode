@@ -14,11 +14,11 @@ public class processClass extends genClass {
         System.out.println("Result: " + colors[drawNum[1]]);
         System.out.println("Result: " + colors[drawNum[2]]);
 
-        if ((drawNum[0] == myColor) && (drawNum[1] == myColor) && (drawNum[2] == myColor)){
+        if ((drawNum[0] == myColor) && (drawNum[1] == myColor) && (drawNum[2] == myColor)) {
             this.yourCash = (this.yourCash + myBet) * 3;
             this.didYouwin = true;
         }
-        if ((drawNum[0] == myColor) || (drawNum[1] == myColor) || (drawNum[2] == myColor)){
+        if ((drawNum[0] == myColor) || (drawNum[1] == myColor) || (drawNum[2] == myColor)) {
             this.yourCash = (this.yourCash + myBet);
             this.didYouwin = true;
         } else {
@@ -26,6 +26,9 @@ public class processClass extends genClass {
         }
     }
 
+    private void setYourCashIn(int myCashIn){
+        
+    }
     public int getYourCash(int myColor, int myBet) {
         setYourCash(myColor, myBet);
         return this.yourCash;
