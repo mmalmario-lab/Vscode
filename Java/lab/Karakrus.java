@@ -1,6 +1,7 @@
 package lab;
 
 import java.util.Scanner;
+import java.util.Random;
 
 public class Karakrus {
     public static void main(String[] args) {
@@ -25,12 +26,16 @@ public class Karakrus {
 
             int winner = process.getResult(choice);
             if (winner == 1 || winner == 0) {
-                System.out.println("Winner: " + (winner == 0 ? "Kara" : "Krus"));
+                System.out.println("Player Choice: " + (choice == 0 ? "Kara" : "Krus"));
+                System.out.println("Talang result: " + (winner == 0 ? "Kara" : "Krus"));
+            }
+            if (process.isWin) {
+                System.out.println("You win!");
+            } else if (!process.isDraw) {
+                System.out.println("You lose!");
             }
             if (process.isDraw) {
                 System.out.println("It's a draw!");
-            }
-            if (process.isDraw) {
                 System.out.print("Press 1 to continue....... :");
                 int input = Integer.parseInt(scanner.nextLine());
                 if (input != 1) {
