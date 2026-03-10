@@ -33,7 +33,7 @@ void mergeSort(int arr[], int l, int r) {
 
 int main() {
     int arr[] = {25,10,40,5,30};
-    int n = 4;
+    int n = 5;
 
     mergeSort(arr, 0, n - 1);
 

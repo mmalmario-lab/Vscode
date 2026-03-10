@@ -26,8 +26,9 @@ public class Karakrus {
             int winner = process.getResult(choice);
             if (winner == 1 || winner == 0) {
                 System.out.println("Winner: " + (winner == 0 ? "Kara" : "Krus"));
-            } else {
-                System.out.println("No winner this round.");
+            }
+            if (process.isDraw) {
+                System.out.println("It's a draw!");
             }
             if (process.isDraw) {
                 System.out.print("Press 1 to continue....... :");
