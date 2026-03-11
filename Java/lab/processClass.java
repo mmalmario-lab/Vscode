@@ -16,7 +16,7 @@ public class processClass extends genClass {
             isWin = true;
             winner = playerChoice;
         } else {
-            System.out.println("You lose!");
+            winner = (playerChoice == 0) ? 1 : 0; // If player chose 0, winner is 1; if player chose 1, winner is 0
         }
 
     }
