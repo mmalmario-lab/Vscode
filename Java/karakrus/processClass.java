@@ -1,4 +1,4 @@
-package lab;
+package karakrus;
 
 public class processClass extends genClass {
 

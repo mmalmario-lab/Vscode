@@ -1,3 +1,4 @@
+package colorgame;
 
 import java.util.Scanner;
 
@@ -18,7 +19,6 @@ public class colorGame {
                 System.out.println("[3] is Green");
                 System.out.println("[4] is Pink");
                 System.out.println("[5] is While");
-                
 
                 System.out.print("Choose your color: ");
                 myColor = input.nextInt();
@@ -46,11 +46,9 @@ public class colorGame {
                     System.out.println("Enter the amount: ");
                     pc.myCashIn = input.nextInt();
                     pc.yourCash += pc.myCashIn;
-                }
-                else if (playOrNot == 1) {
+                } else if (playOrNot == 1) {
                     goLang = false;
-                }
-                else {
+                } else {
                     System.out.println("Invalid Input: ");
                 }
             }

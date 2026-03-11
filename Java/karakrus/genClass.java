@@ -1,4 +1,4 @@
-package lab;
+package karakrus;
 
 import java.util.Random;
 

@@ -1,3 +1,5 @@
+package colorgame;
+
 public class processClass extends genClass {
 
     public processClass(int myCash) {
@@ -26,9 +28,10 @@ public class processClass extends genClass {
         }
     }
 
-    private void setYourCashIn(int myCashIn){
-        
+    private void setYourCashIn(int myCashIn) {
+
     }
+
     public int getYourCash(int myColor, int myBet) {
         setYourCash(myColor, myBet);
         return this.yourCash;
