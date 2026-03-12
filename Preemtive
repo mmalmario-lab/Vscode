@@ -1,10 +1,10 @@
 ## 1. What “Priority Preemptive” Means
 
-* **Priority** → Each process has a priority number.
-* **Smaller number = higher priority** (Priority 1 is highest).
-* **Preemptive** → If a new process arrives with **higher priority**, it **interrupts the currently running process**.
+Priority → Each process has a priority number.
+Smaller number = higher priority (Priority 1 is highest).
+Preemptive → If a new process arrives with higher priority, it interrupts the currently running process.
 
-So the CPU can **stop one process and switch to another**.
+So the CPU can stop one process and switch to another.
 
 ---
 
@@ -21,8 +21,8 @@ So the CPU can **stop one process and switch to another**.
 
 Important:
 
-* **Priority 1 = Highest**
-* **Priority 3 = Lowest**
+Priority 1 = Highest
+Priority 3 = Lowest
 
 ---
 
