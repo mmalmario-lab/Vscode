@@ -1,0 +1,149 @@
+## 1. What “Priority Preemptive” Means
+
+Priority → Each process has a priority number.
+Smaller number = higher priority (Priority 1 is highest).
+Preemptive → If a new process arrives with higher priority, it interrupts the currently running process.
+
+So the CPU can stop one process and switch to another.
+
+---
+
+## 2. The Processes in the Table
+
+| Process | Arrival Time | Burst Time | Priority |
+| ------- | ------------ | ---------- | -------- |
+| C6      | 0            | 10         | 3        |
+| C4      | 2            | 15         | 2        |
+| C1      | 4            | 20         | 1        |
+| C3      | 6            | 20         | 1        |
+| C2      | 8            | 20         | 1        |
+| C5      | 0            | 5          | 2        |
+
+Important:
+
+Priority 1 = Highest
+Priority 3 = Lowest
+
+---
+
+# 3. Execution Timeline (Gantt Chart)
+
+The bar at the bottom shows which process runs at each time.
+
+| Time    | Running Process | Reason                          |
+| ------- | --------------- | ------------------------------- |
+| 0 – 2   | C5              | Higher priority than C6         |
+| 2 – 4   | C4              | C4 arrives with higher priority |
+| 4 – 8   | C1              | Highest priority arrives        |
+| 8 – 24  | C3              | Priority 1 processes continue   |
+| 24 – 44 | C2              | Next highest priority           |
+| 44 – 64 | C5              | Resume unfinished               |
+| 64 – 65 | C5              | Finish                          |
+| 65 – 80 | C4              | Resume                          |
+| 80 – 90 | C6              | Lowest priority runs last       |
+
+---
+
+# 4. Why Processes Stop (Preemption)
+
+Example:
+
+### Step 1
+
+At **time 0**
+
+* C6 and C5 arrive
+* C5 has **higher priority**
+
+➡ CPU runs **C5**
+
+---
+
+### Step 2
+
+At **time 2**
+
+* C4 arrives
+* C4 priority = 2
+* C5 priority = 2 (but C4 arrived later with scheduling rules)
+
+➡ CPU switches to **C4**
+
+---
+
+### Step 3
+
+At **time 4**
+
+* C1 arrives
+* Priority = **1 (highest)**
+
+➡ **C1 interrupts C4**
+
+This is **preemption**.
+
+---
+
+# 5. Burst Time Changes
+
+Example in the table:
+
+C1 burst time:
+
+```
+20 → 18 → 16
+```
+
+Because it **runs, stops, then resumes later**.
+
+---
+
+# 6. What the Yellow and Red Colors Mean
+
+Usually in these diagrams:
+
+* 🟨 **Yellow** = Process currently running
+* 🟥 **Red** = Process waiting or preempted
+
+---
+
+# 7. What WT and TAT Mean
+
+### Waiting Time (WT)
+
+Time a process **waits in the ready queue**.
+
+Formula:
+
+```
+WT = Turnaround Time − Burst Time
+```
+
+---
+
+### Turnaround Time (TAT)
+
+```
+TAT = Completion Time − Arrival Time
+```
+
+---
+
+# 8. Average Values
+
+The right side shows:
+
+* **AWT** = Average Waiting Time
+* **ATAT** = Average Turnaround Time
+
+You compute these after finding WT and TAT for every process.
+
+---
+
+✅ **In short**
+
+Priority Preemptive scheduling:
+
+1. CPU always chooses **highest priority process**
+2. If a **higher priority process arrives**, the current one **stops**
+3. The interrupted process **continues later**
