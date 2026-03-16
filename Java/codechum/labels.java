@@ -9,7 +9,8 @@ public class labels extends Frame {
         frame.setSize(300, 200);
         frame.setLayout(new FlowLayout());
 
-        Label helloWorldLabel = new Label("helloWorldlabel");
+        Label helloWorldLabel = new Label();
+        helloWorldLabel.setName("helloWorldLabel");
         helloWorldLabel.setText("Hello World! I love Java!");
 
         frame.add(helloWorldLabel);
