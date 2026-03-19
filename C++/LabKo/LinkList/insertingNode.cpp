@@ -47,7 +47,10 @@ int main() {
     Node* ptr = first;
 
     while(ptr != NULL){
-        cout << ptr->data << " <-> ";
+        cout << ptr->data;
+        if(ptr->next != NULL){
+            cout << " <-> ";
+        }
         ptr = ptr->next;
     }
 

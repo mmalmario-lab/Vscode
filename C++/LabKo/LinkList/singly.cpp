@@ -24,7 +24,10 @@ int main() {
     Node* temp = head;
 
     while(temp != NULL){
-        cout << temp->data << " -> ";
+        cout << temp->data;
+        if(temp->next != NULL){
+            cout << " -> ";
+        }
         temp = temp->next;
     }
 
